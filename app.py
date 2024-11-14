@@ -1,7 +1,40 @@
-cell = None
+import random
+
+# Создание и вывод поля заданного размера
+# size = int(input('Задай размер поля: '))
+# print(size)
+# field = []
+# for i in range(size):
+#     line = []
+#     for i in range(size):
+#         line.append(None)
+#     field.append(line)
+#
+# print("Начальное поле")
+# for row in field:
+#     print('|', end='')
+#     for cell in row:
+#         if cell is None:
+#             print(' |', end='')
+#         else:
+#             print(f'{cell}', end='')
+#     print()
+
+
+field = [[None, None, None], [None, None, None], [None, None, None]]
 size = 3
-field = [[cell] * size] * size
-# count_cell = list(range(1, size+1))
+
+
+def view_field(field: list[list]):
+    for row in field:
+        print('|', end='')
+        for cell in row:
+            if cell is None:
+                print(' |', end='')
+            else:
+                print(f'{cell}|', end='')
+        print()
+
 
 def is_win(field: list[list]):
     # Проход по строке
@@ -9,10 +42,10 @@ def is_win(field: list[list]):
         if row[0] == row[1] == row[2] and row[0]:
             return True
     # Проход по столбцу
-    for i in range(size):
+    for i in range(3):
         if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
             return True
-    # Главаная диагональ
+    # Главная диагональ
     if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
         return True
     # Побочная диагональ
@@ -20,12 +53,43 @@ def is_win(field: list[list]):
         return True
     return False
 
+
 def move(label_player, field):
-    step_line = input('В какую ячейку строки будет ход?')
-    def
-    step_column = input('В какую ячейку столбца будет ход?')
+    while True:
+        while True:
+            try:
+                row = int(input('Твой ход(строка): '))
+                row -= 1
+            except ValueError:
+                print('Ошибка. Нужно целое число')
+                continue
+            if not 0 <= row <= size - 1:
+                print('Ошибка. Неверный диапазон')
+                continue
+            break
+        while True:
+            try:
+                col = int(input('Твой ход(столбец): '))
+                col -= 1
+            except ValueError:
+                print('Ошибка. Нужно целое число')
+                continue
+            if not 0 <= col <= size - 1:
+                print('Ошибка неверный диапазон')
+                continue
+            break
+        if field[row][col] is not None:
+            print('Ошибка ячейка уже занята')
+            continue
+        field[row][col] = label_player
+        break
+    print(view_field(field))
 
 
+print(f'"Начальное поле" {view_field(field)}')
 
+print(is_win(field), move('X', field))
 
-    if field[step_line][step_column]
+# if __name__ == "__main__":
+
+# print(field)
