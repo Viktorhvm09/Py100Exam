@@ -26,6 +26,7 @@ size = 3
 
 
 def view_field(field: list[list]):
+    """ Выводит размеченное игровое поле в столбец """
     for row in field:
         print('|', end='')
         for cell in row:
@@ -37,6 +38,7 @@ def view_field(field: list[list]):
 
 
 def is_win(field: list[list]):
+    """Проверка поля на выйгрышную комбинацию"""
     # Проход по строке
     for row in field:
         if row[0] == row[1] == row[2] and row[0]:
@@ -55,6 +57,7 @@ def is_win(field: list[list]):
 
 
 def move(label_player, field):
+    """Ход пользователя и вывод измененного игрового поля"""
     while True:
         while True:
             try:
