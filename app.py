@@ -59,6 +59,7 @@ def is_win(field: list[list]):
 def move(label_player, field):
     """Ход пользователя и вывод измененного игрового поля"""
     while True:
+        # Заменить на функцию
         while True:
             try:
                 row = int(input('Твой ход(строка): '))
@@ -86,13 +87,69 @@ def move(label_player, field):
             continue
         field[row][col] = label_player
         break
-    print(view_field(field))
+    view_field(field)
+
+def game():
+    is_first = input('Будешь ходить первым? [y/n]: ')
+    symb = input('Выбери символ [x/o]: ')
+    current_player = None
+    win = None
+
+    if is_first == 'y':
+        player = symb
+        current_player = 'h'
+    else:
+        player = 'x' if symb == 'o' else 'o'
+        current_player = 'c'
+
+    print(f'"Начальное поле"')
+    view_field(field)
+
+    # if is_win(field) is False:
+    #     while is_win(field) is False:
+    #         if current_player == 'h':
+    #             move(player, field)
+    #             player = 'x' if player == 'o' else 'o'
+    #             current_player = 'c' if current_player == 'h' else 'h'
+    #             win = 'h'
+    #         else:
+    #             print("Ходит компьютер")
+    #             while True:
+    #                 col, row = random.randint(0, size-1), random.randint(0, size-1)
+    #                 if field[row][col] is not None:
+    #                     continue
+    #                 field[row][col] = player
+    #                 break
+    #             view_field(field)
+    #             player = 'x' if player == 'o' else 'o'
+    #             current_player = 'c' if current_player == 'h' else 'h'
+    #             win = 'c'
+    # else:
+    #     print(f'Выйграл игрок {win}')
+
+    while not is_win(field):
+        if current_player == 'h':
+            move(player, field)
+            player = 'x' if player == 'o' else 'o'
+            current_player = 'c' if current_player == 'h' else 'h'
+            win = 'h'
+        else:
+            print("Ходит компьютер")
+            while True:
+                col, row = random.randint(0, size-1), random.randint(0, size-1)
+                if field[row][col] is not None:
+                    continue
+                field[row][col] = player
+                break
+            view_field(field)
+            player = 'x' if player == 'o' else 'o'
+            current_player = 'c' if current_player == 'h' else 'h'
+            win = 'c'
+    print(f'Выйграл игрок {win}')
 
 
-print(f'"Начальное поле" {view_field(field)}')
 
-print(is_win(field), move('X', field))
 
-# if __name__ == "__main__":
 
-# print(field)
+
+game()
