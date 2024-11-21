@@ -12,7 +12,7 @@ import random
 
 
 # field = [[None, None, None], [None, None, None], [None, None, None]]
-field = [['X', 'X', 'X'], [None, None, None], [None, None, None]]
+# field = [[None, None, None], [None, None, None], [None, None, None]]
 size = 3
 
 
@@ -51,22 +51,43 @@ def is_win(field: list[list]) -> bool:
     # Проход по строке
     # for row in field:
     #     # if row[0] == row[1] == row[2] and row[0]:
-    #     row_win = {}
+    #     row_win = []
     #     for cell in row:
-    #         row_win.add(cell)
-    # if len(row_win) == 1:
+    #         if cell is not None:
+    #             row_win.append(cell)
+    #     if len(set(row_win)) == 1 and len(row_win) == size:
+    #         print('T')
+    #         return True
+    # Проход по столбцу
+    # col_win = []
+    # for i in range(size):
+    #     # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
+    #     for i in field[i][i]:
+    #         if i is not None:
+    #             col_win.append(i)
+    # if len(set(col_win)) == 1 and len(col_win) >= size:
+    #     print('T')
     #     return True
-    # # # Проход по столбцу
-    # # for i in range(3):
-    # #     if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
-    # #         return True
-    # # # Главная диагональ
-    # # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
-    # #     return True
-    # # # Побочная диагональ
-    # # if field[0][2] == field[1][1] == field[2][0] and field[0][2]:
-    # #     return True
-    # return False
+
+
+
+
+    # # Главная диагональ
+    gendiag_win = []
+    for i in range(size):
+        # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
+        for i in field[i][i]:
+            if i is not None:
+                gendiag_win.append(i)
+    if len(set(gendiag_win)) == 1 and len(gendiag_win) >= size:
+        print('T')
+        return True
+
+    # # Побочная диагональ
+    # if field[0][2] == field[1][1] == field[2][0] and field[0][2]:
+    #     return True
+    print('F')
+    return False
 
 
 # def move(label_player: str, field: list[list]) -> print:
@@ -157,32 +178,79 @@ def game():
     print(f'"Начальное поле"')
     view_field(field)
 
+
     count_step = 0
-    while 0 <= count_step < 2:
-        while not is_win(field):
-            count_step += 1
-            if current_player == 'h':
-                move(player, field)
-                player = 'x' if player == 'o' else 'o'
-                current_player = 'c' if current_player == 'h' else 'h'
-                win = 'человек'
-            else:
-                print("Ход компьютера")
-                while True:
-                    col, row = random.randint(0, size - 1), random.randint(0, size - 1)
-                    if field[row][col] is not None:
-                        continue
-                    field[row][col] = player
-                    break
-                view_field(field)
-                player = 'x' if player == 'o' else 'o'
-                current_player = 'c' if current_player == 'h' else 'h'
-                win = 'компьютер'
+    while not is_win(field) and 0 <= count_step < size * size:
+        count_step += 1
+        if current_player == 'h':
+            move(player, field)
+            player = 'x' if player == 'o' else 'o'
+            current_player = 'c' if current_player == 'h' else 'h'
+            win = 'человек'
+        else:
+            print("Ход компьютера")
+            while True:
+                col, row = random.randint(0, size - 1), random.randint(0, size - 1)
+                if field[row][col] is not None:
+                    continue
+                field[row][col] = player
+                break
+            view_field(field)
+            player = 'x' if player == 'o' else 'o'
+            current_player = 'c' if current_player == 'h' else 'h'
+            win = 'компьютер'
+    if is_win(field) is True:
         print(f'Выйграл {win}')
-        break
     else:
         print('Ничья')
 
 
 # game()
-is_win(field)
+# is_win(field)
+
+# print(is_win([[None, None, None],
+#               [None, None, None],
+#               [None, None, None]]))
+# print('Строка---------------------')
+# print(is_win([['0', '0', '0'],
+#               ['0', '1', None],
+#               ['1', None, '0']]))
+#
+#
+# print(is_win([['1', '0', '1'],
+#               ['0', '0', '0'],
+#               ['1', '1', '0']]))
+#
+#
+# print(is_win([[None, None, None],
+#               [None, None, None],
+#               ['0', '0', '0']]))
+#
+# print('Столбец---------------------')
+# print(is_win([['0', '0', '1'],
+#               ['0', '1', '0'],
+#               ['0', '1', '1']]))
+#
+#
+# print(is_win([[None, '0', None],
+#               [None, '0', None],
+#               [None, '0', None]]))
+#
+#
+# print(is_win([[None, None, '0'],
+#               [None, None, '0'],
+#               [None, None, '0']]))
+#
+# print('Диагонали---------------------')
+print(is_win([['0', '1', '0'],
+              ['0', '0', '1'],
+              ['1', '1', '0']]))
+#
+#
+# print(is_win([[None, '1', '0'],
+#               [None, '0', None],
+#               ['0', None, '1']]))
+#
+# print(is_win([['0', '0', '1'],
+#               ['1', '1', '0'],
+#               ['0', '0', '1']]))
