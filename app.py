@@ -3,17 +3,14 @@ import random
 # Создание поля заданного размера
 size = int(input('Задай размер поля: '))
 print(size)
-field = []
-for i in range(size):
-    line = []
-    for i in range(size):
-        line.append(None)
-    field.append(line)
-
-
-# field = [[None, None, None], [None, None, None], [None, None, None]]
-# size = 3
-
+line = [None for i in range(size)]
+field = [line for i in range(size)]
+# field = []
+# for i in range(size):
+#     line = []
+#     for i in range(size):
+#         line.append(None)
+#     field.append(line)
 
 def view_field(field: list[list]) -> print:
     """ Выводит размеченное игровое поле в столбец """
@@ -50,19 +47,19 @@ def is_win(field: list[list]) -> bool:
     # Проход по строке
     # if row[0] == row[1] == row[2] and row[0]:
     for row in field:
-        row_win = []
-        for cell in row:
-            if cell is not None:
-                row_win.append(cell)
+        row_win = [cell for cell in row if cell is not None]
+        # for cell in row:
+        #     if cell is not None:
+        #         row_win.append(cell)
         if len(set(row_win)) == 1 and len(row_win) == size:
             return True
     # Проход по столбцу
     # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
     for i in range(size):
-        col_win = []
-        for k in range(size):
-            if field[k][i] is not None:
-                col_win.append(field[k][i])
+        col_win = [field[k][i] for k in range(size) if field[k][i] is not None]
+        # for k in range(size):
+        #     if field[k][i] is not None:
+        #         col_win.append(field[k][i])
         if len(set(col_win)) == 1 and len(col_win) == size:
             return True
     # Главная диагональ
