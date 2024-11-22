@@ -1,19 +1,18 @@
 import random
 
 # Создание поля заданного размера
-# size = int(input('Задай размер поля: '))
-# print(size)
-# field = []
-# for i in range(size):
-#     line = []
-#     for i in range(size):
-#         line.append(None)
-#     field.append(line)
+size = int(input('Задай размер поля: '))
+print(size)
+field = []
+for i in range(size):
+    line = []
+    for i in range(size):
+        line.append(None)
+    field.append(line)
 
 
 # field = [[None, None, None], [None, None, None], [None, None, None]]
-# field = [[None, None, None], [None, None, None], [None, None, None]]
-size = 3
+# size = 3
 
 
 def view_field(field: list[list]) -> print:
@@ -49,45 +48,39 @@ def view_field(field: list[list]) -> print:
 def is_win(field: list[list]) -> bool:
     """Проверка поля на выйгрышную комбинацию"""
     # Проход по строке
-    # for row in field:
-    #     # if row[0] == row[1] == row[2] and row[0]:
-    #     row_win = []
-    #     for cell in row:
-    #         if cell is not None:
-    #             row_win.append(cell)
-    #     if len(set(row_win)) == 1 and len(row_win) == size:
-    #         print('T')
-    #         return True
+    # if row[0] == row[1] == row[2] and row[0]:
+    for row in field:
+        row_win = []
+        for cell in row:
+            if cell is not None:
+                row_win.append(cell)
+        if len(set(row_win)) == 1 and len(row_win) == size:
+            return True
     # Проход по столбцу
+    # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
     for i in range(size):
         col_win = []
-        # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
         for k in range(size):
-            for j in field[k][i]:
-                if j is not None:
-                    col_win.append(j)
-        if len(set(col_win)) == 1 and len(col_win) >= size:
-            print('T')
+            if field[k][i] is not None:
+                col_win.append(field[k][i])
+        if len(set(col_win)) == 1 and len(col_win) == size:
             return True
-
-
-
-
-    # # # Главная диагональ
-    # gendiag_win = []
-    # for i in range(size):
-    #     # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
-    #     for i in field[i][i]:
-    #         if i is not None:
-    #             gendiag_win.append(i)
-    # if len(set(gendiag_win)) == 1 and len(gendiag_win) >= size:
-    #     print('T')
-    #     return True
-
-    # # Побочная диагональ
+    # Главная диагональ
+    # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
+    gen_diag_win = []
+    for i in range(size):
+        if field[i][i] is not None:
+            gen_diag_win.append(field[i][i])
+    if len(set(gen_diag_win)) == 1 and len(gen_diag_win) == size:
+        return True
+    # Побочная диагональ
     # if field[0][2] == field[1][1] == field[2][0] and field[0][2]:
-    #     return True
-    print('F')
+    rev_diag_win = []
+    for i in range(size):
+        if field[i][(size-1)-i] is not None:
+            rev_diag_win.append(field[i][(size-1)-i])
+    if len(set(rev_diag_win)) == 1 and len(rev_diag_win) == size:
+        return True
     return False
 
 
@@ -179,7 +172,6 @@ def game():
     print(f'"Начальное поле"')
     view_field(field)
 
-
     count_step = 0
     while not is_win(field) and 0 <= count_step < size * size:
         count_step += 1
@@ -206,52 +198,4 @@ def game():
         print('Ничья')
 
 
-# game()
-# is_win(field)
-
-# print(is_win([[None, None, None],
-#               [None, None, None],
-#               [None, None, None]]))
-# print('Строка---------------------')
-# print(is_win([['0', '0', '0'],
-#               ['0', '1', None],
-#               ['1', None, '0']]))
-#
-#
-# print(is_win([['1', '0', '1'],
-#               ['0', '0', '0'],
-#               ['1', '1', '0']]))
-#
-#
-# print(is_win([[None, None, None],
-#               [None, None, None],
-#               ['0', '0', '0']]))
-#
-# print('Столбец---------------------')
-print(is_win([['0', '1', '1'],
-              ['1', '0', '1'],
-              ['0', '1', '1']]))
-#
-#
-# print(is_win([[None, '0', None],
-#               [None, '0', None],
-#               [None, '0', None]]))
-#
-#
-# print(is_win([[None, None, '0'],
-#               [None, None, '0'],
-#               [None, None, '0']]))
-#
-# print('Диагонали---------------------')
-# print(is_win([['0', '1', '0'],
-#               ['0', '0', '1'],
-#               ['1', '1', '0']]))
-#
-#
-# print(is_win([[None, '1', '0'],
-#               [None, '0', None],
-#               ['0', None, '1']]))
-#
-# print(is_win([['0', '0', '1'],
-#               ['1', '1', '0'],
-#               ['0', '0', '1']]))
+game()
