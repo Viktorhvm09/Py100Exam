@@ -59,29 +59,30 @@ def is_win(field: list[list]) -> bool:
     #         print('T')
     #         return True
     # Проход по столбцу
-    # col_win = []
+    for i in range(size):
+        col_win = []
+        # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
+        for k in range(size):
+            for j in field[k][i]:
+                if j is not None:
+                    col_win.append(j)
+        if len(set(col_win)) == 1 and len(col_win) >= size:
+            print('T')
+            return True
+
+
+
+
+    # # # Главная диагональ
+    # gendiag_win = []
     # for i in range(size):
-    #     # if field[0][i] == field[1][i] == field[2][i] and field[0][i]:
+    #     # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
     #     for i in field[i][i]:
     #         if i is not None:
-    #             col_win.append(i)
-    # if len(set(col_win)) == 1 and len(col_win) >= size:
+    #             gendiag_win.append(i)
+    # if len(set(gendiag_win)) == 1 and len(gendiag_win) >= size:
     #     print('T')
     #     return True
-
-
-
-
-    # # Главная диагональ
-    gendiag_win = []
-    for i in range(size):
-        # if field[0][0] == field[1][1] == field[2][2] and field[0][0]:
-        for i in field[i][i]:
-            if i is not None:
-                gendiag_win.append(i)
-    if len(set(gendiag_win)) == 1 and len(gendiag_win) >= size:
-        print('T')
-        return True
 
     # # Побочная диагональ
     # if field[0][2] == field[1][1] == field[2][0] and field[0][2]:
@@ -227,9 +228,9 @@ def game():
 #               ['0', '0', '0']]))
 #
 # print('Столбец---------------------')
-# print(is_win([['0', '0', '1'],
-#               ['0', '1', '0'],
-#               ['0', '1', '1']]))
+print(is_win([['0', '1', '1'],
+              ['1', '0', '1'],
+              ['0', '1', '1']]))
 #
 #
 # print(is_win([[None, '0', None],
@@ -242,9 +243,9 @@ def game():
 #               [None, None, '0']]))
 #
 # print('Диагонали---------------------')
-print(is_win([['0', '1', '0'],
-              ['0', '0', '1'],
-              ['1', '1', '0']]))
+# print(is_win([['0', '1', '0'],
+#               ['0', '0', '1'],
+#               ['1', '1', '0']]))
 #
 #
 # print(is_win([[None, '1', '0'],
